@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+<?php echo base_url()?>assets/front/images/tek.jpg
+<div class="col-md-6 px-0">
+				<h1 class="display-4 fat-italie">Tau Gak?</h1>
+				<p class="lead my-3">Membahas hal-hal dan fakta unik yang ada di indonesia sampai internasional,biar kamu makin tau!</p> 
+			</div>
