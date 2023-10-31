@@ -7,13 +7,15 @@ class Login extends CI_Controller{
     }
 
     public function index()
-    {
-        if($this->session->userdata("level"))
-        {
-            redirect("login");
-        }
-        $this->load->view('view_login');
+{
+    if ($this->session->userdata("level")) {
+        redirect("login");
     }
+
+    $nama_pengguna = $this->session->userdata('nama_pengguna');
+
+    $this->load->view('view_login', ['nama_pengguna' => $nama_pengguna]);
+}
     public function ceklogin()
     {
         $this->load->model('m_login');

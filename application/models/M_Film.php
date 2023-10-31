@@ -15,7 +15,21 @@ public function __construct()
 	{
 		return $this->db->query("SELECT * FROM tbl_film AS ta JOIN tbl_kategori AS tk ON ta.`id_kategori` = tk.`id_kategori` WHERE ta.id_kategori=$id")->result();
 	}
-	
+	public function searchFilmByTitle($keyword)
+{
+    return $this->db->query("SELECT * FROM tbl_film AS ta JOIN
+        tbl_kategori AS tk ON ta.`id_kategori` = tk.`id_kategori`
+        WHERE ta.nama_film LIKE '%$keyword%'")->result();
+}
+
+public function getFilmDetail($id_film) {
+    $this->db->where('id_film', $id_film);
+    $query = $this->db->get('tbl_film');
+    
+    // Convert the result to an array
+    return $query->result_array();
+}
+
 	// Create
 	public function proses_tambah()
 	{

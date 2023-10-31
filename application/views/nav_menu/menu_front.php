@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fixed">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
@@ -9,11 +9,12 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Search End ***** -->
                     <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Search" id='searchText' name="searchKeyword" onkeypress="handle" />
+                    <form id="search" action="<?php echo base_url()?>index.php/beranda/search">
+                        <input type="text" placeholder="Search" id="searchText" name="searchKeyword" />
                         <i class="fa fa-search"></i>
-                      </form>
+                    </form>
                     </div>
+
                     <!-- ***** Search End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
@@ -27,8 +28,12 @@
                                 <?php }?>
                             </ul>
                         </div>
-                        <li><a href="berlangganan" class="active">Berlangganan</a></li>
-                        <li><a href="login">Login<img src="<?php echo base_url()?>assets/front/images/profile.png" alt=""></a></li>
+                        <li><a href="<?php echo base_url()?>berlangganan" class="active">Berlangganan</a></li>
+                        <?php if($this->session->userdata("level")) {?>
+                            <li><a href="login/logout">Logout<img src="<?php echo base_url()?>assets/front/images/profile.png" alt=""></a></li>
+                        <?php } else { ?>
+                            <li><a href="<?php echo base_url()?>login">Login<img src="<?php echo base_url()?>assets/front/images/profile.png" alt=""></a></li>
+                        <?php } ?>
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

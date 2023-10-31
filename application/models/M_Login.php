@@ -10,6 +10,7 @@ class M_Login extends CI_Model
     {
         //variable
         $user=$this->input->post("user");
+        
         $pass=MD5($this->input->post("pass"));
         $q="select * from tbl_user where username='$user' and password='$pass'";
         $db=$this->db->query($q);
@@ -24,12 +25,13 @@ class M_Login extends CI_Model
                 $this->session->set_flashdata("pesan",$msg);
                 redirect('dashboard');
             }
-            if($db->level=="2")
-            {
-                $data=array('level'=>'Member',);
+            if ($db->level == "2") {
+                $data = array('level' => 'Member');
                 $this->session->set_userdata($data);
-                $msg="<script>alert('Anda Login Sebagai Member')</script>";
-                $this->session->set_flashdata("pesan",$msg);
+                $nama = $this->session->userdata('nama');
+                $msg = "<script>alert('Anda Login Sebagai Member')</script>";
+                $this->session->set_flashdata("pesan", $msg);
+                $this->session->set_userdata('nama', $nama);
                 redirect('beranda');
             }
         }else

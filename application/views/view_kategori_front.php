@@ -6,7 +6,7 @@
           {?>
       <div class="col-lg-3 col-sm-6">
         <div class="item">
-          <a href="https://youtu.be/yinFWWqIe8Q" target="_blank">
+           <a href="<?php echo base_url()?>index.php/beranda/streaming">
           <img src="<?php echo base_url()?>assets/poster/<?php echo $data->gambar ?>" alt="">
           <h4><?php echo $data->nama_film?><br><span><?php echo $data->tahun?></span><span><?php echo $data->nama_kategori?></span></h4>
           <ul>

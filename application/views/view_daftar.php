@@ -50,16 +50,16 @@
             
           </div>
           <div class="col-lg-4 p-5 rounded-5" style="background-color: #212020; text-align: center;">
-            <form class="form-signin" method="post" action="<?php echo base_url()?>index.php/login/ceklogin">
+            <form class="form-signin" method="post" action="<?php echo base_url()?>daftar/proses_daftar">
             <h1 class="mb-4">Daftar</h1>
              <label for="inputemail" class="sr-only">Nama</label>
-             <input type="user" class="form-control mb-2" name="nama" placeholder="Nama" required autofocus>
+             <input type="text" class="form-control mb-2" name="nama" placeholder="Nama" required autofocus>
 			 <label for="inputemail" class="sr-only">Username</label>
-             <input type="user" class="form-control mb-2" name="user" placeholder="Username" required autofocus>
+             <input type="text" class="form-control mb-2" name="username" placeholder="Username" required autofocus>
              <label for="inputPassword" class="sr-only">Password</label>
-             <input type="password" id="inputPassword" class="form-control mb-2" name="pass" placeholder="Password" required>
+             <input type="password" id="inputPassword" class="form-control mb-2" name="password" placeholder="Password" required>
              <label for="inputkonfir" class="sr-only">Konfirmasi Password</label>
-             <input type="konfirpass" class="form-control mb-2" name="konfirpass" placeholder="Konfirmasi Password" required>
+             <input type="passowrd" class="form-control mb-2" name="konfirpass" placeholder="Konfirmasi Password" required>
              <h6><small>*Pastikan Konfirmasi Password sama dengan Password</small></h6>
              <br>
              <button class="btn btn-md btn-outline-light btn-block" type="submit">Daftar</button>

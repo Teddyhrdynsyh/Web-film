@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="<?php echo base_url()?>assets/front/images/c.png">
 
-    <title>Moviestation</title>
+    <title>MOVIESTATION</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -37,37 +37,33 @@
   </div>
   <!-- ***** Preloader End ***** -->
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <?php $this->load->view('nav_menu/menu_front.php') ?>
+  </header>
+  <!-- ***** Header Area End ***** -->
+  <div id="page" class="container">
         <div class="page-content">
-
-          <div class="container">
-          <div class="col-lg-7 p-5 mt-5" style="text-align: left; ">
-          <img class="m-2 mb-5"src="<?php echo base_url()?>assets/front/images/logofilm.png" alt="" width="5px"  >
+        <h4 class="mt-5 my-4">Hasil Pencarian : <?php echo $keyword ?></h4>
+          <div class="row">
+            <?php
+              if (isset($searchResults) && count($searchResults) > 0) {
+                foreach ($searchResults as $result) { ?>
+                  <div class="col-md-4 g-4">
+                  <div class="featured-games header-text">
+                      <div class="item">
+                        <img src="<?php echo base_url()?>assets/poster/<?php echo $result->gambar ?>" alt="">
+                        <h4><?php echo $result->nama_film?><br></h4>
+                        <ul class="" >
+                          <li><i class="fa fa-star"></i><?php echo $result->rating?></li>
+                          <li><i class="fa fa-download"></i> 2.3M</li>
+                        </ul>
+                      </div>
+                      </div>
           </div>
-          <div class="col-lg-1">
-            
-          </div>
-          <div class="col-lg-4 p-5 rounded-5" style="background-color: #212020; text-align: center;">
-            <form class="form-signin" method="post" action="<?php echo base_url()?>login/ceklogin">
-            <h1 class="mb-4">Login</h1>
-             <label for="inputemail" class="sr-only">Username</label>
-             <input type="user" class="form-control mb-2" name="user" placeholder="Username" required autofocus>
-             <label for="inputPassword" class="sr-only">Password</label>
-             <input type="password" id="inputPassword" class="form-control" name="pass" placeholder="Password" required>
-             <div class="checkbox mb-5" style="color: white">
-              <label>
-                <input type="checkbox" value="remember-me">Remember Me
-              </label>
-             </div>
-             <button class="btn btn-md btn-outline-light btn-block" type="submit">Login</button>
-            </form>
-            <h6><small>Belum punya akun? <a href="daftar">Daftar disini</a></small></h6>
-          </div>
+          <?php } } ?>
           
         </div>
-      </div>
     </div>
   </div>
   
@@ -75,7 +71,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <p class="text-muted">Copyright &copy; 2023 Moviestation.com. All rights reserved.</p>
+          <p class="text-muted">Copyright &copy; 2023 MOVIESTATION. All rights reserved.</p>
         </div>
       </div>
     </div>
@@ -84,6 +80,7 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
+
   <script src="<?php echo base_url()?>assets/vendor/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url()?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -95,6 +92,42 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+    // Fungsi untuk menangani pencarian saat tombol Enter ditekan
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            searchFilm();
+        }
+    }
+
+    // Fungsi untuk melakukan pencarian film
+    function searchFilm() {
+        var searchText = document.getElementById('searchText').value;
+
+        // Mengirim permintaan pencarian menggunakan AJAX
+        $.ajax({
+            type: 'GET',
+            url: '<?php echo base_url() ?>index.php/beranda/search',
+            data: {
+                searchKeyword: searchText
+            },
+            dataType: 'json',
+            success: function(response) {
+                // Menampilkan hasil pencarian
+                var searchResults = document.getElementById('searchResults');
+                searchResults.innerHTML = '';
+
+                for (var i = 0; i < response.length; i++) {
+                    var film = response[i];
+                    var resultItem = document.createElement('div');
+                    resultItem.innerHTML = film.judul;
+                    searchResults.appendChild(resultItem);
+                }
+            }
+        });
+    }
+</script>
 
   </body>
 

@@ -14,44 +14,50 @@ class Daftar extends CI_Controller {
     }
 
     public function proses_daftar()
-    {
+{
+    // Mengambil data dari form
+    $nama = $this->input->post('nama');
+    $username = $this->input->post('username');
+    $password = $this->input->post('password');
+    $level = 2; // Level otomatis 1
+    $confirm_password = $this->input->post('konfirpass');
 
-        //mengambil data dari form
-        $nama = $this->input->post('username');
-        $username = $this->input->post('email');
-        $password = $this->input->post('password');
-        $confirm_password = $this->input->post('password');
-
-        //memeriksa apakah password dan konfirmasi password sama
-        if ($password != $confirm_password) {
-            echo "Password tidak sesuai dengan konfirmasi password";
-            exit();
-        }
-
-        //memeriksa apakah username sudah terdaftar di database
-        $query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username'");
-        if (mysqli_num_rows($query) > 0) {
-            echo "Username sudah terdaftar";
-            exit();
-        }
-
-        //memeriksa apakah email sudah terdaftar di database
-        $query = mysqli_query($koneksi, "SELECT * FROM users WHERE email='$email'");
-        if (mysqli_num_rows($query) > 0) {
-            echo "Email sudah terdaftar";
-            exit();
-        }
-
-        //menambahkan data user baru ke database
-        $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-        if (mysqli_query($koneksi, $query)) {
-            echo "Registrasi berhasil";
-        } else {
-            echo "Error: " . $query . "<br>" . mysqli_error($koneksi);
-        }
-
-        //menutup koneksi ke database
-        mysqli_close($koneksi);
+    // Memeriksa apakah password dan konfirmasi password sama
+    if ($password != $confirm_password) {
+        echo "Password tidak sesuai dengan konfirmasi password";
+        exit();
     }
+
+    $koneksi = mysqli_connect("localhost", "root", "", "film");
+
+    // Memeriksa apakah username sudah terdaftar di database
+    $result = mysqli_query($koneksi, "SELECT * FROM tbl_user WHERE username='$username'");
+    if (!$result) {
+        echo "Error: " . mysqli_error($koneksi);
+        exit();
+    }
+    if (mysqli_num_rows($result) > 0) {
+        echo "Username sudah terdaftar";
+        exit();
+    }
+
+    // Mengenkripsi password menggunakan MD5
+    $hashed_password = md5($password);
+
+    // Menambahkan data user baru ke database
+    $query = "INSERT INTO tbl_user (username, nama, password, level) VALUES ('$username', '$nama', '$hashed_password', '$level')";
+    if (mysqli_query($koneksi, $query)) {
+        echo "Registrasi berhasil";
+        redirect('login');
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($koneksi);
+    }
+
+    // Menutup koneksi ke database
+    mysqli_close($koneksi);
+}
+
+
+
 }
 ?>

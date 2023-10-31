@@ -8,8 +8,9 @@
           $n=1;foreach ($film as $data) 
           {?>
       <div class="col-lg-3 col-sm-6">
+        
         <div class="item">
-          <a href="<?php echo base_url()?>index.php/beranda/streaming">
+        <a href="<?php echo base_url()?>index.php/beranda/detail/<?php echo $data->id_film ?>">
           <img src="<?php echo base_url()?>assets/poster/<?php echo $data->gambar ?>" alt="">
           <h4><?php echo $data->nama_film?><br><span><?php echo $data->tahun?></span><span><?php echo $data->nama_kategori?></span></h4>
           <ul>
@@ -20,9 +21,6 @@
         </div>
       </div>
       <?php 
-      if($n++ == 8) {
-          break;
-      }
       }?>
       <div class="col-lg-12">
         <div class="main-button">

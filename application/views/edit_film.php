@@ -26,7 +26,7 @@
                             <div class="col-md-12">
                                 <div class="form-group has-success">
                                 <label class="control-label">Poster</label>
-                                <input type="file" required class="form-control input-default" name="gambar">
+                                <input type="file" class="form-control input-default" name="gambar">
                                 <small class="form-control-feedback"> Silahkan upload kembali nama filmnya </small>
                             </div>
                                 <img src="<?php echo base_url()?>assets/poster/<?php echo $film->gambar ?>" witdh="200px" height="200px">

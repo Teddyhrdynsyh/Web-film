@@ -51,33 +51,42 @@
 </head>
 <body>
 	<h1>Langganan Aplikasi Streaming Film</h1>
-	<form method="post" action="">
-		<label for="nama">Nama:</label>
-		<input type="text" id="nama" name="nama" required>
+	<form method="post" action="<?php echo base_url('berlangganan/proses_langganan'); ?>">
+    <label for="jenis-langganan">Jenis Langganan:</label>
+    <select id="jenis-langganan" name="jenis_langganan" onchange="updatePrice()">
+        <?php foreach ($paket as $k) { ?>
+            <option value="<?php echo $k['id_paket']; ?>" data-harga="<?php echo $k['harga']; ?>">
+                <?php echo $k['nama_paket']; ?> | Rp. <?php echo $k['harga']; ?>
+            </option>
+        <?php } ?>
+    </select>
 
-		<label for="user">Username:</label>
-		<input type="text" id="" name="user" required>
+    <label for="durasi-langganan">Durasi Langganan (bulan):</label>
+    <?php $durasi = [1, 6, 12]; ?>
+    <select id="durasi-langganan" name="durasi_langganan" onchange="updatePrice()">
+        <?php foreach ($durasi as $drs) { ?>
+            <option value="<?php echo $drs; ?>"><?php echo $drs; ?> Bulan</option>
+        <?php } ?>
+    </select>
 
-		<label for="jenis-langganan">Jenis Langganan:</label>
-		<select id="jenis-langganan" name="jenis_langganan">
-			<option value="basic">Basic</option>
-			<option value=""></option>
-			<option value=""></option>
-		</select>
+    <label for="jumlah-bayar">Jumlah Bayar:</label>
+    <input type="number" id="jumlah-bayar" name="hargaakhir">
 
-		<label for="durasi-langganan">Durasi Langganan (bulan):</label>
-		<input type="number" id="durasi-langganan" name="durasi_langganan" min="1" max="12" required>
-		<label for="user">Jumlah Bayar:</label>
-		<input type="text" id="" name="jumlah" required>
-		<input type="submit" value="Berlangganan">
-	</form>
+    <input type="submit" value="Berlangganan">
+</form>
+
+
+	<script>
+		function updatePrice() {
+			var selectedPackage = document.getElementById("jenis-langganan");
+			var selectedDuration = document.getElementById("durasi-langganan");
+			var price = parseFloat(selectedPackage.options[selectedPackage.selectedIndex].getAttribute("data-harga"));
+			var duration = selectedDuration.value;
+			var total = (price * duration).toFixed(2);
+
+			document.getElementById("jumlah-bayar").value = total;
+		}
+
+	</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
